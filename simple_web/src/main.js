@@ -1,11 +1,16 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
+import createRouter from './router.js'
 
-// Import Bootstrap 5 styles
+
+
 import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/js/bootstrap.js'
 
-createApp(App)
-  .use(router)
-  .mount('#app')
 
+const router = createRouter(createWebHistory())
+const app = createApp(App)
+
+app.use(router)
+
+app.mount('#app')
