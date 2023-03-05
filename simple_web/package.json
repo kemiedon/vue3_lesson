@@ -1,5 +1,5 @@
 {
-  "name": "fist_vite",
+  "name": "simple_web",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,9 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "5": "^0.0.1",
+    "@popperjs/core": "^2.11.6",
+    "axios": "^1.3.4",
     "bootstrap": "^5.2.3",
-    "vue": "^3.2.45"
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
