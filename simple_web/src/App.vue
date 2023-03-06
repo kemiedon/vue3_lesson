@@ -1,35 +1,72 @@
 
+<script setup>
+import About from './components/About.vue'
+import News from './components/News.vue'
+import Menu from './components/Menu.vue'
+import Reservation from './components/Reservation.vue'
+</script>
 
 <template>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-        <router-link class="navbar-brand" to="/">Delicious</router-link>
+<header id="header" class="fixed-top d-flex align-items-cente">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+      <h1 class="logo me-auto me-lg-0"><router-link class="navbar-brand" to="/">Delicious</router-link></h1>
+      <nav id="navbar" class="navbar order-last order-lg-0">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <router-link class="nav-link" to="/about">關於我們</router-link>
-            </li>
-            <li class="nav-item">
-          <router-link class="nav-link" to="/menu">菜單</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/reservation">預約訂位</router-link>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+        <ul id="navbarNav" class="collapse navbar-collapse">
+          <li><a class="nav-link scrollto active" href="#hero">首頁</a></li>
+          <li><a class="nav-link scrollto" href="#about">關於我們</a></li>
+          <li><a class="nav-link scrollto" href="#menu">Menu</a></li>
+          <li><a class="nav-link scrollto" href="#specials">主廚推薦</a></li>
+          <li><a class="nav-link scrollto" href="#contact">預約訂位</a></li>
+        </ul>
+        
+      </nav><!-- .navbar -->
+      <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">Book a table</a>
 
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1>Welcome to <span>Delicious</span></h1>
+          <h2>Delivering great food for more than 18 years!</h2>
+
+          <div class="btns">
+            <a href="#menu" class="btn-menu animated fadeInUp scrollto">Our Menu</a>
+            <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">Book a Table</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section><!-- End Hero -->
 <!-- Main content -->
-<div class="container py-4">
+<About/>
+<News/>
+<section id="FeatureDishes" class="d-flex align-items-center">
   <router-view></router-view>
-</div>
+</section>
+<Menu/>
+<Reservation/>
+<!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Delicious</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+       
+        Designed by MacroViz
+      </div>
+    </div>
+  </footer><!-- End Footer -->
 </template>
 
 
