@@ -1,0 +1,51 @@
+[
+    {
+      "id": 1,
+      "name": "提拉米蘇",
+      "price": 120,
+      "description": "經典義式甜點，以芝士、餅乾與咖啡調製而成",
+      "image": "dessert1.jpg"
+    },
+    {
+      "id": 2,
+      "name": "千層蛋糕",
+      "price": 150,
+      "description": "層層鬆軟的蛋糕夾著甜美的鮮奶油和新鮮水果",
+      "image": "dessert2.jpg"
+    },
+    {
+      "id": 3,
+      "name": "草莓奶油蛋糕",
+      "price": 180,
+      "description": "口感綿密的蛋糕搭配新鮮草莓和濃郁奶油",
+      "image": "dessert3.jpg"
+    },
+    {
+      "id": 4,
+      "name": "巧克力蛋糕",
+      "price": 160,
+      "description": "濃郁的巧克力口感，讓人無法抗拒",
+      "image": "dessert4.jpg"
+    },
+    {
+      "id": 5,
+      "name": "起士蛋糕",
+      "price": 170,
+      "description": "酸甜的起士口感，讓人愛不釋手",
+      "image": "dessert5.jpg"
+    },
+    {
+      "id": 6,
+      "name": "焦糖布丁",
+      "price": 110,
+      "description": "滑順的布丁搭配香氣四溢的焦糖醬",
+      "image": "dessert6.jpg"
+    },
+    {
+      "id": 7,
+      "name": "熔岩巧克力蛋糕",
+      "price": 220,
+      "description": "外層蛋糕酥脆，內層巧克力融化在嘴裡，讓您愛不釋口。",
+      "image": "dessert7.jpg"
+    }
+  ]

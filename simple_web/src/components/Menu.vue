@@ -1,6 +1,6 @@
 <template>
   <div class="container py-4">
-    <h1 class="mb-4">菜單</h1>
+    <h1 class="py-5">菜單</h1>
     <div class="row">
       <div class="col-md-4 mb-4" v-for="dish in dishes" :key="dish.id">
         <div class="card">

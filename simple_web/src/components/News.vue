@@ -1,6 +1,7 @@
 <template>
-  <div class="container py-4">
-    <h1>最新消息</h1>
+  
+  <div class="container py-5">
+    <h1 class="py-5">最新消息</h1>
     <div class="row">
       <div class="col-md-6">
         <div class="card mb-4">

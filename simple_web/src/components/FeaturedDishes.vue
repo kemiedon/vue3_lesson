@@ -1,10 +1,10 @@
 <template>
   <div class="container py-4">
-  <h1 class="mb-4">主廚推薦</h1>
+  <h1 class="py-5">主廚推薦</h1>
   <div class="row row-cols-1 row-cols-md-4 g-4">
     <div class="col">
       <div class="card h-100">
-        <img src="/images/featured-dish-1.jpg" class="card-img-top" alt="Featured Dish">
+        <img src="../assets/imgs/featured-dish-1.jpg" class="card-img-top" alt="Featured Dish">
         <div class="card-body">
           <h5 class="card-title">經典燉牛肉</h5>
           <p class="card-text">
@@ -16,11 +16,11 @@
     </div>
     <div class="col">
       <div class="card h-100">
-        <img src="/images/featured-dish-2.jpg" class="card-img-top" alt="Featured Dish">
+        <img src="../assets/imgs/featured-dish-2.jpg" class="card-img-top" alt="Featured Dish">
         <div class="card-body">
-          <h5 class="card-title">豬肉卷</h5>
+          <h5 class="card-title">義式烤羊排</h5>
           <p class="card-text">
-            我們的豬肉卷由新鮮的豬肉和蔬菜製成。香氣四溢、美味可口。
+            我們的義式烤羊排以優質的羊肉為主材料，經過特殊的醃料和調味料處理後，再用高溫烤製，表皮酥脆，內裡嫩滑，搭配各式綠色蔬菜，絕對是一道不容錯過的美食。
           </p>
           <a href="#" class="btn btn-primary">查看菜單</a>
         </div>
@@ -28,7 +28,7 @@
     </div>
     <div class="col">
       <div class="card h-100">
-        <img src="/images/featured-dish-3.jpg" class="card-img-top" alt="Featured Dish">
+        <img src="../assets/imgs/featured-dish-3.jpg" class="card-img-top" alt="Featured Dish">
         <div class="card-body">
           <h5 class="card-title">鮮蝦燴飯</h5>
           <p class="card-text">
@@ -40,7 +40,7 @@
     </div>
     <div class="col">
       <div class="card h-100">
-        <img src="/images/featured-dish-4.jpg" class="card-img-top" alt="Featured Dish">
+        <img src="../assets/imgs/featured-dish-4.jpg" class="card-img-top" alt="Featured Dish">
         <div class="card-body">
           <h5 class="card-title">蒜香烤鮮魚</h5>
           <p class="card-text">
@@ -52,7 +52,7 @@
     </div>
     <div class="col">
       <div class="card h-100">
-        <img src="/images/featured-dish-5.jpg" class="card-img-top" alt="Featured Dish">
+        <img src="../assets/imgs/featured-dish-5.jpg" class="card-img-top" alt="Featured Dish">
         <div class="card-body">
           <h5 class="card-title">香煎鵝肝</h5>
           <p class="card-text">
@@ -64,7 +64,7 @@
     </div>
     <div class="col">
       <div class="card h-100">
-        <img src="/images/featured-dish-6.jpg" class="card-img-top" alt="Featured Dish">
+        <img src="../assets/imgs/featured-dish-6.jpg" class="card-img-top" alt="Featured Dish">
         <div class="card-body">
           <h5 class="card-title">椰香咖哩蝦</h5>
           <p class="card-text">
@@ -76,7 +76,7 @@
     </div>
     <div class="col">
       <div class="card h-100">
-        <img src="/images/featured-dish-7.jpg" class="card-img-top" alt="Featured Dish">
+        <img src="../assets/imgs/featured-dish-7.jpg" class="card-img-top" alt="Featured Dish">
         <div class="card-body">
           <h5 class="card-title">藍帶牛排</h5>
           <p class="card-text">
@@ -88,11 +88,11 @@
     </div>
     <div class="col">
       <div class="card h-100">
-        <img src="/images/featured-dish-8.jpg" class="card-img-top" alt="Featured Dish">
+        <img src="../assets/imgs/featured-dish-8.jpg" class="card-img-top" alt="Featured Dish">
         <div class="card-body">
-          <h5 class="card-title">黑松露意大利麵</h5>
+          <h5 class="card-title">黑松露義大利麵</h5>
           <p class="card-text">
-            我們的黑松露意大利麵以最優質的意大利麵配上特製的黑松露醬汁，簡單卻充滿層次感，是您的必嚐佳餚。
+            我們的黑松露義大利麵以最優質的義大利麵配上特製的黑松露醬汁，簡單卻充滿層次感，是您的必嚐佳餚。
           </p>
           <a href="#" class="btn btn-primary">查看菜單</a>
         </div>
@@ -121,7 +121,13 @@
 }
 
 .card-text {
+  overflow: hidden;
   font-size: 1.2rem;
+  display: box;
+  text-overflow: ellipsis;
+  line-clamp: 2; /*行數*/
+  box-orient: vertical;
+  white-space: normal;
 }
 
 .btn-primary {

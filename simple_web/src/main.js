@@ -5,7 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import FeaturedDishes from './components/FeaturedDishes.vue'
 
-import './style.css'
+// import './style.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 
