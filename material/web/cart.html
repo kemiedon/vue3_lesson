@@ -1,18 +1,74 @@
-<template>
-  <section class="h-100">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious點餐系統</title>
+    <link rel="stylesheet" href="../bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .logo {
+            width: 150px;
+            height: 150px;
+            padding: 15px;
+            background: url('imgs/logo.png') no-repeat;
+            margin: auto;
+            background-position: center center;
+            background-size: 100% 100%;
+        }
+
+        .nav {
+            width: 100%;
+            padding: 50px 0;
+        }
+
+        ul li {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        ul li a {
+            width: 100%;
+            height: 50px;
+            display: block;
+            color: #fff;
+            text-indent: 10px;
+        }
+
+        .nav li span {
+            margin-left: 20px;
+        }
+
+        .router-link-active {
+            width: 100%;
+            height: 50px;
+            display: block;
+            color: yellow;
+            border-bottom: 1px solid yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="h-100 py-5" style="background-color: #eee;">
         <div class="container h-100 py-5">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-10">
       
-            
-              <h1 class="py-5 text-center">我的購物車</h1>
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-normal mb-0 text-black">我的購物車</h3>
               
+              </div>
+      
               <div class="card rounded-3 mb-4">
                 <div class="card-body p-4">
                   <div class="row d-flex justify-content-between align-items-center">
                     <div class="col-md-2 col-lg-2 col-xl-2">
                       <img
-                        src="../assets/imgs/menu/pasta3.jpg"
+                        src="../imgs/menu/pasta3.jpg"
                         class="img-fluid rounded-3" alt="Cotton T-shirt">
                     </div>
                     <div class="col-md-3 col-lg-3 col-xl-3">
@@ -160,14 +216,7 @@
             </div>
           </div>
         </div>
-      </section>
+    </section>
+</body>
 
-</template>
-
-<script setup>
-
-</script>
-
-<style>
-
-</style>
+</html>
