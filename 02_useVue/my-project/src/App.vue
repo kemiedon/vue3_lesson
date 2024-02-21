@@ -1,15 +1,19 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <PersonInfo/>
+  <BasicScript></BasicScript>
+  <DataBinding></DataBinding>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import PersonInfo from './components/PersonInfo.vue'
+import BasicScript from './components/BasicScript.vue';
+import DataBinding from './components/DataBinding.vue';
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    PersonInfo,
+    BasicScript,
+    DataBinding
   }
 }
 </script>
