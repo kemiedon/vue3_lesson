@@ -1,34 +1,42 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue';
-import LifeCircleVue from './components/LifeCircle.vue';
-import LifeNoteVue from './components/LifeNote.vue';
-import Button from './components/MyButton.vue';
-import DataBinding from './components/DataBinding.vue';
-import ChangeColor from './components/ChangeColor.vue';
+import { RouterView, RouterLink } from 'vue-router';
 </script>
 
 <template>
+  <div class="container">
+  <nav>
+    <ul class="menu-list">
+      <li><router-link to="/button">建立組件</router-link></li>
+      <li><router-link to="/change_color">替換顏色</router-link></li>
+      <li><router-link to="/life_circle">生命週期</router-link></li>
+      <li><router-link to="/life_note">載入筆記</router-link></li>
+      <li><router-link to="/data_binding">資料綁定</router-link></li>
+      <li><router-link to="/computed">計算屬性(Computed)</router-link></li>
+      <li><router-link to="/watch">Watch</router-link></li>
+      <li><router-link to="/watch_effect">WatchEffect</router-link></li>
+    </ul>
+  </nav>
+    <router-view></router-view>
+  </div>
   
-  <HelloWorld msg="Vite + Vue" />
-  <Button></Button>
-  <br>
-  <LifeCircle></LifeCircle>
-  <LifeNoteVue></LifeNoteVue>
-  <DataBinding></DataBinding>
-  <ChangeColor></ChangeColor>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.menu-list{
+  width: 1200px;
+  margin: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.menu-list li{
+  width: 100px;
+  font-size: 18px;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.container{
+  width: 80%;
+  margin: auto;
 }
 </style>
