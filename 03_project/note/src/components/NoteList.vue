@@ -3,12 +3,9 @@ import { useNoteStore } from '../stores/NoteStore'
 const emit = defineEmits(['selectNote'])
 const noteStore = useNoteStore()
 const { selectedNote, deleteNote, markedPinned } = noteStore
-
 let selectedNoteId = null
 
 const selectNote = (note) => {
-  // noteStore.setNoteIndex(note.id); // 設定當前點擊的 note 索引到 store 中
-  // 發送自定義事件通知 App.vue 切換組件
   emit('selectNote', 'note');
 };
 
@@ -35,29 +32,33 @@ const confirmDelete = () => {
   <router-link :to="{ name: 'add'}" class="d-flex justify-content-around" >
     <button class="mt-3 btn btn-warning">新增筆記</button>
   </router-link>
-  <h5 class="p-3"><i class="fa-solid fa-thumbtack"></i>&nbsp;&nbsp;重要</h5>
-  <ul class="list-group">
-    <li v-for="note in noteStore.pinnedNotes" :key="note.id" class="list-group-item">
-      <router-link :to="{ name: 'edit', params: { id: note.id } }" class="d-flex justify-content-around">
-          <div class="note-title" @click="selectNote(note)" >{{ note.title }}</div>
-          <div class="icon-group">
-            <span><i class="fa-solid fa-trash"></i></span>
-          </div>
-      </router-link>  
-    </li>
-  </ul>
-  <h5 class="p-3"><i class="fa-solid fa-list"></i>&nbsp;全部</h5>
-  <ul class="list-group">
-    <li v-for="note in noteStore.allNotes" :key="note.id" class="list-group-item">
-      <router-link :to="{ name: 'edit', params: { id: note.id } }"  class="d-flex justify-content-around" >
-          <div class="note-title" @click="selectNote(note)" >{{ note.title }}</div>
-          <div class="icon-group">
-            <span><i class="fa-solid fa-thumbtack" @click="markedPinned(note.id)"></i></span>
-            <span><i class="fa-solid fa-trash" @click="showDeleteModal(note)"></i></span>
-          </div>
-      </router-link>  
-    </li>
-  </ul>
+  <div class="row align-items-start">
+    <div class="col-12">
+      <h5 class="p-3"><i class="fa-solid fa-thumbtack"></i>&nbsp;&nbsp;重要</h5>
+      <ul class="list-group">
+        <li v-for="note in noteStore.pinnedNotes" :key="note.id" class="list-group-item">
+          <router-link :to="{ name: 'edit', params: { id: note.id } }" class="d-flex justify-content-around">
+              <div class="note-title" @click="selectNote(note)" >{{ note.title }}</div>
+              <div class="icon-group">
+                <span><i class="fa-solid fa-trash" @click="showDeleteModal(note)"></i></span>
+              </div>
+          </router-link>  
+        </li>
+      </ul>
+      <h5 class="p-3"><i class="fa-solid fa-list"></i>&nbsp;全部</h5>
+      <ul class="list-group">
+        <li v-for="note in noteStore.allNotes" :key="note.id" class="list-group-item">
+          <router-link :to="{ name: 'edit', params: { id: note.id } }"  class="d-flex justify-content-around" >
+              <div class="note-title" @click="selectNote(note)" >{{ note.title }}</div>
+              <div class="icon-group">
+                <span><i class="fa-solid fa-thumbtack" @click="markedPinned(note.id)"></i></span>
+                <span><i class="fa-solid fa-trash" @click="showDeleteModal(note)"></i></span>
+              </div>
+          </router-link>  
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
 <div class="modal fade" tabindex="-1" id="deleteModal">
   <div class="modal-dialog">
