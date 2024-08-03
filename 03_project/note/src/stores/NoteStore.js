@@ -55,15 +55,10 @@ export const useNoteStore = defineStore( "notes", {
     },
     actions: {
       markedPinned(id) {
-          console.log(id)
-          const updatedNotes = this.notes.map(item => {
-            console.log(item)
-            if( id === item.id)
-              item.pinned = true
-            return item
-          })
-          console.log(updatedNotes)
-          this.notes = updatedNotes
+        const index = this.notes.findIndex(note => note.id === id)
+        if(index !== -1){
+            this.notes[index].pinned = !this.notes[index].pinned
+        }
       },
       addNote(title, content){
         console.log(title)

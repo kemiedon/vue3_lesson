@@ -3,6 +3,7 @@
     const noteStore = useNoteStore()
 </script>
 <template>
+    <h2 v-if="noteStore.searchResults.length == 0">查無相關資料</h2>
     <main id="result" class="container d-flex justify-content-between pt-5 align-start flex-wrap">
         <div v-for="note in noteStore.searchResults" class="card" style="width: 23%; height: 18rem;">
             <router-link :to="{ name: 'edit', params: { id: note.id } }">

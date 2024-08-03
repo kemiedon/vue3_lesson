@@ -40,6 +40,7 @@ const confirmDelete = () => {
           <router-link :to="{ name: 'edit', params: { id: note.id } }" class="d-flex justify-content-around">
               <div class="note-title" @click="selectNote(note)" >{{ note.title }}</div>
               <div class="icon-group">
+                <i class="fa-solid fa-thumbtack me-3 rotate" @click="markedPinned(note.id)"></i>
                 <span><i class="fa-solid fa-trash" @click="showDeleteModal(note)"></i></span>
               </div>
           </router-link>  
@@ -97,8 +98,12 @@ const confirmDelete = () => {
   .icon-group span:first-child{
     margin-right: 30px;
   }
+  .icon-group i{
+    cursor: pointer;
+  }
   .icon-group i:hover{
     color: rgb(255, 81, 0);
+    
   }
   .list-group{
     width: 100%;
@@ -132,6 +137,10 @@ const confirmDelete = () => {
   }
   .modal {
     transition: opacity 0.3s ease;
+  }
+  .rotate{
+    color: red;
+    transform: rotate(45deg);
   }
 </style>
 
