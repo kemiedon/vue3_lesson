@@ -5,10 +5,6 @@ const noteStore = useNoteStore()
 const { selectedNote, deleteNote, markedPinned } = noteStore
 let selectedNoteId = null
 
-const selectNote = (note) => {
-  emit('selectNote', 'note');
-};
-
 const showDeleteModal = (note) => {
   selectedNoteId = note.id
   const modal = new bootstrap.Modal(document.getElementById('deleteModal'))
@@ -36,26 +32,28 @@ const confirmDelete = () => {
     <div class="col-12">
       <h5 class="p-3"><i class="fa-solid fa-thumbtack"></i>&nbsp;&nbsp;重要</h5>
       <ul class="list-group">
-        <li v-for="note in noteStore.pinnedNotes" :key="note.id" class="list-group-item">
-          <router-link :to="{ name: 'edit', params: { id: note.id } }" class="d-flex justify-content-around">
-              <div class="note-title" @click="selectNote(note)" >{{ note.title }}</div>
-              <div class="icon-group">
+        <li v-for="note in noteStore.pinnedNotes" :key="note.id" class="list-group-item d-flex justify-content-around">
+            <router-link :to="{ name: 'edit', params: { id: note.id } }">
+              <div class="note-title">{{ note.title }}</div>
+            </router-link>
+              <div class="icon-group d-flex justify-content-around me-3">
                 <i class="fa-solid fa-thumbtack me-3 rotate" @click="markedPinned(note.id)"></i>
                 <span><i class="fa-solid fa-trash" @click="showDeleteModal(note)"></i></span>
               </div>
-          </router-link>  
+            
         </li>
       </ul>
       <h5 class="p-3"><i class="fa-solid fa-list"></i>&nbsp;全部</h5>
       <ul class="list-group">
-        <li v-for="note in noteStore.allNotes" :key="note.id" class="list-group-item">
-          <router-link :to="{ name: 'edit', params: { id: note.id } }"  class="d-flex justify-content-around" >
-              <div class="note-title" @click="selectNote(note)" >{{ note.title }}</div>
-              <div class="icon-group">
+        <li v-for="note in noteStore.allNotes" :key="note.id" class="list-group-item d-flex justify-content-around">
+          <router-link :to="{ name: 'edit', params: { id: note.id } }" >
+              <div class="note-title">{{ note.title }}</div>
+          </router-link>  
+              <div class="icon-group d-flex justify-content-around me-3">
                 <span><i class="fa-solid fa-thumbtack" @click="markedPinned(note.id)"></i></span>
                 <span><i class="fa-solid fa-trash" @click="showDeleteModal(note)"></i></span>
               </div>
-          </router-link>  
+          
         </li>
       </ul>
     </div>

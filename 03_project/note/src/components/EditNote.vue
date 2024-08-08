@@ -10,7 +10,7 @@ const currentNote = computed(() => noteStore.notes.find(note => note.id === pars
 const newNoteTitle = ref(currentNote.value ? currentNote.value.title : '')
 const newNoteContent = ref(currentNote.value ? currentNote.value.content : '')
 const showSuccessAlert = ref(false)
-
+// 監聽使用者是否點了其他筆記
 watch(currentNote, (newNote) => {
   if (newNote) {
     newNoteTitle.value = newNote.title;
@@ -25,7 +25,7 @@ const clearPlaceholder = () =>{
 const clearTextArea = () => {
   newNoteContent.value = ''
 }
-const updateNote = () => {
+function updateNote(){
   if (currentNote.value) {
     noteStore.editNote(currentNote.value.id, newNoteTitle.value, newNoteContent.value);
     // 顯示更新成功消息
