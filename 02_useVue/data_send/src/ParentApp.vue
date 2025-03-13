@@ -1,6 +1,6 @@
 <!-- Parent.vue -->
 <script setup>
-import Child from './Child.vue'
+import Child from './components/Child.vue'
 </script>
 
 <template>
