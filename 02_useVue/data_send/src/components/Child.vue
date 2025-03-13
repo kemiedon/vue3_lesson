@@ -1,5 +1,6 @@
 <!-- Child.vue -->
 <script setup>
+import { defineProps } from 'vue';
 defineProps(['name', 'age'])
 </script>
 
