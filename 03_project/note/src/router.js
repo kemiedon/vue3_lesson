@@ -7,7 +7,7 @@ const routes = [
   { path: '/', component: NoteGrid, name: 'grid' },
   { path: '/add', component: AddNote, name: 'add' },
   { path: '/edit/:id', component: EditNote, props: true, name: 'edit' },
-  { path: '/search', component: SearchNote, props: true, name: 'search' },
+  { path: '/search', component: SearchNote, name: 'search' },
 ];
 
 const router = createRouter({
