@@ -34,6 +34,7 @@ function updateNote(){
     // 設置一個計時器，在 2 秒後隱藏消息
     setTimeout(() => {
       showSuccessAlert.value = false;
+      router.push({ name: '/', params: { searchResults: results } });
     }, 1000);
   }
 }

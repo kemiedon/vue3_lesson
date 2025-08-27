@@ -1,26 +1,34 @@
 <script setup>
+// 引入 NoteStore 以管理筆記狀態
 import { useNoteStore } from '../stores/NoteStore'
+// 定義發送事件 'selectNote'
 const emit = defineEmits(['selectNote'])
+// 取得 NoteStore 實例及相關方法
 const noteStore = useNoteStore()
 const { selectedNote, deleteNote, markedPinned } = noteStore
+// 儲存當前選中的筆記 ID
 let selectedNoteId = null
 
+// 顯示刪除確認模態框
 const showDeleteModal = (note) => {
   selectedNoteId = note.id
   const modal = new bootstrap.Modal(document.getElementById('deleteModal'))
   modal.show()
 }
 
+// 確認刪除筆記並關閉模態框
 const confirmDelete = () => {
-  if(selectedNoteId != null){
-    noteStore.deleteNote(selectedNoteId)
-  }else{
-    modal.innerHTML("找不到此筆資料!")
+  if (selectedNoteId != null) {
+    noteStore.deleteNote(selectedNoteId) // 刪除指定筆記
+  } else {
+    modal.innerHTML("找不到此筆資料!") // 錯誤提示
   }
+  // 關閉模態框並移除背景遮罩
   const modal = document.getElementById('deleteModal')
-  modal.classList.remove('show');
-  document.querySelector('.modal-backdrop').classList.remove('show');
-  router.push({ name: 'add'});
+  modal.classList.remove('show')
+  document.querySelector('.modal-backdrop').classList.remove('show')
+  // 跳轉到 'add' 路由
+  router.push({ name: 'add' })
 }
 </script>
 <template>
@@ -28,36 +36,39 @@ const confirmDelete = () => {
   <router-link :to="{ name: 'add'}" class="d-flex justify-content-around" >
     <button class="mt-3 btn btn-warning">新增筆記</button>
   </router-link>
-  <div class="row align-items-start">
-    <div class="col-12">
-      <h5 class="p-3"><i class="fa-solid fa-thumbtack"></i>&nbsp;&nbsp;重要</h5>
-      <ul class="list-group">
-        <li v-for="note in noteStore.pinnedNotes" :key="note.id" class="list-group-item d-flex justify-content-around">
-            <router-link :to="{ name: 'edit', params: { id: note.id } }">
-              <div class="note-title">{{ note.title }}</div>
-            </router-link>
-              <div class="icon-group d-flex justify-content-around me-3">
-                <i class="fa-solid fa-thumbtack me-3 rotate" @click="markedPinned(note.id)"></i>
-                <span><i class="fa-solid fa-trash" @click="showDeleteModal(note)"></i></span>
-              </div>
+  <div class="container d-flex justify-content-center">
+    <div class="row w-75">
+        <div class="col-12">
+        <h5 class="pt-3"><i class="fa-solid fa-thumbtack"></i>&nbsp;&nbsp;重要</h5>
+        <ul class="list-group">
+            <li v-for="note in noteStore.pinnedNotes" :key="note.id" class="list-group-item d-flex justify-content-around">
+                <router-link :to="{ name: 'edit', params: { id: note.id } }">
+                <div class="note-title">{{ note.title }}</div>
+                </router-link>
+                <div class="icon-group d-flex justify-content-around me-3">
+                    <i class="fa-solid fa-thumbtack me-3 rotate" @click="markedPinned(note.id)"></i>
+                    <span><i class="fa-solid fa-trash" @click="showDeleteModal(note)"></i></span>
+                </div>
+                
+            </li>
+        </ul>
+        <h5 class="pt-3"><i class="fa-solid fa-list"></i>&nbsp;全部</h5>
+        <ul class="list-group">
+            <li v-for="note in noteStore.allNotes" :key="note.id" class="list-group-item d-flex justify-content-around">
+            <router-link :to="{ name: 'edit', params: { id: note.id } }" >
+                <div class="note-title">{{ note.title }}</div>
+            </router-link>  
+                <div class="icon-group d-flex justify-content-around me-3">
+                    <span><i class="fa-solid fa-thumbtack" @click="markedPinned(note.id)"></i></span>
+                    <span><i class="fa-solid fa-trash" @click="showDeleteModal(note)"></i></span>
+                </div>
             
-        </li>
-      </ul>
-      <h5 class="p-3"><i class="fa-solid fa-list"></i>&nbsp;全部</h5>
-      <ul class="list-group">
-        <li v-for="note in noteStore.allNotes" :key="note.id" class="list-group-item d-flex justify-content-around">
-          <router-link :to="{ name: 'edit', params: { id: note.id } }" >
-              <div class="note-title">{{ note.title }}</div>
-          </router-link>  
-              <div class="icon-group d-flex justify-content-around me-3">
-                <span><i class="fa-solid fa-thumbtack" @click="markedPinned(note.id)"></i></span>
-                <span><i class="fa-solid fa-trash" @click="showDeleteModal(note)"></i></span>
-              </div>
-          
-        </li>
-      </ul>
+            </li>
+        </ul>
+        </div>
     </div>
   </div>
+  
 </div>
 <div class="modal fade" tabindex="-1" id="deleteModal">
   <div class="modal-dialog">
