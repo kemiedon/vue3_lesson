@@ -16,18 +16,18 @@
         </div>
     </div>
     <!-- Bootstrap Modal -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal fade" :class="{ show: showModal }" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-modal="true" :style="{ display: showModal ? 'block' : 'none' }">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="successModalLabel">成功加入購物車</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     {{ modalMessage }}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-secondary" @click="closeModal">關閉</button>
                 </div>
             </div>
         </div>
@@ -35,14 +35,20 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
 import { useCartStore } from '../store/cartStore';
 const cartStore = useCartStore();
 const modalMessage = ref('');
+const showModal = ref(false);
 
 const handleAddToCart = (item) => {
     cartStore.addToCart(item);
     modalMessage.value = `${item.name} 已成功加入購物車！`;
+    showModal.value = true;
+};
+
+const closeModal = () => {
+    showModal.value = false;
 };
 </script>
 

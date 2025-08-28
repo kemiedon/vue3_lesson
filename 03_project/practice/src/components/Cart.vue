@@ -6,7 +6,7 @@
         </div>
         <div class="container">
             <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center" v-for="(cart_item, index) in cartStore.carts">
+                <li class="list-group-item d-flex justify-content-between align-items-center" v-for="(cart_item, idx) in cartStore.carts" :key="cart_item.id">
                     <div class="col-2">
                         <img :src="cart_item.image" class="img-fluid" alt="">
                     </div>
@@ -16,15 +16,13 @@
                             <p class="mb-1">{{ cart_item.description }}</p>
                         </div>
                         <div class="input-group">
-                            <button class="btn btn-outline-secondary" type="button" @click="cartStore.decrement(index)">-</button>
+                            <button class="btn btn-outline-secondary" type="button" @click="cartStore.decrement(idx)">-</button>
                             <input type="text" class="form-control text-center" v-model="cart_item.quantity">
-                            <button class="btn btn-outline-secondary" type="button" @click="cartStore.increment(index)">+</button>
+                            <button class="btn btn-outline-secondary" type="button" @click="cartStore.increment(idx)">+</button>
                         </div>
-                        
                     </div>
                     <div class="col-2">
-                        
-                        <button type="button" class="btn btn-danger" @click="openDeleteModal"><i class="fas fa-trash-alt"></i></button>
+                        <button type="button" class="btn btn-danger" @click="openDeleteModal(idx)"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </li>
             </ul>
@@ -43,7 +41,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-danger" @click="confirmDelete(index)" data-bs-dismiss="modal">刪除</button>
+                    <button type="button" class="btn btn-danger" @click="confirmDelete" data-bs-dismiss="modal">刪除</button>
                 </div>
                 </div>
             </div>
@@ -51,16 +49,24 @@
     </div>
 </template>
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
 import { useCartStore } from '../store/cartStore';
 const cartStore = useCartStore();
 const index = ref(null);
 
-// Use this function to open the modal and set the index of the item to be deleted
+// Open modal and set index of item to delete
 const openDeleteModal = (i) => {
     index.value = i;
     const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
     deleteModal.show();
+};
+
+// Confirm delete: remove item from cartStore
+const confirmDelete = () => {
+    if (index.value !== null && index.value >= 0) {
+        cartStore.carts.splice(index.value, 1);
+        index.value = null;
+    }
 };
 </script>
 

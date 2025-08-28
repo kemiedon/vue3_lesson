@@ -6,7 +6,7 @@
           <input type="file" id="attractionImage" class="form-control" @change="handleImageChange" >
         </div>
         <div class="form-group d-flex align-items-center justify-content-between mb-3">
-          <input type="text" id="attractionName" class="form-control" >
+          <input type="text" id="attractionName" class="form-control" v-model="attractionName">
         </div>
         <!-- Buttons -->
         <div class="d-flex align-items-center justify-content-end">
@@ -48,9 +48,13 @@ const saveAttraction = () => {
 const handleImageChange = (event) => {
   const file = event.target.files[0];
   if (file) {
+    attractionImage.value = file;
     // Generate preview image URL
     previewImageUrl.value = URL.createObjectURL(file);
-  } 
+  } else {
+    attractionImage.value = null;
+    previewImageUrl.value = null;
+  }
 };
 const closeAddNote = () =>{
   emit('close');

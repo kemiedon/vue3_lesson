@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import {onMounted, ref } from 'vue'
+import {onMounted, ref, defineEmits } from 'vue'
 let spots = ref([]);
 const showAddNoteFormIndex = ref(null);
 let previewImageUrl = ref(null);
