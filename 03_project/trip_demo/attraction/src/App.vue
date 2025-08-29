@@ -1,39 +1,21 @@
-<template>
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="d-flex align-items-end justify-content-between mb-4">
-          <!-- Logo -->
-            <img src="/logo.png" alt="Logo" class="logo">
-            <button class="btn btn-secondary" @click="showAddNoteForm">
-              <i class="fas fa-plus"></i> 新增
-            </button>
-        </div>
-      </div>
-      <AddNote @addAttraction="handleSpotAdded" @close="handleCloseAddNote"  v-if="showAddNewNote"></AddNote>
-      <NoteList :spots="spots"></NoteList>
-    </div>
-  </div>
-</template>
 
 <script setup>
 import { onUpdated, ref } from 'vue';
-import NoteList from './components/NoteList.vue'
-import AddNote from './components/AddNote.vue';
+import AttractionList from './components/AttractionList.vue'
+import AddAttraction from './components/AddAttraction.vue';
 
-let spots = ref([]);
-const showAddNewNote = ref(null);
+
+const showAddNewItem = ref(false);
 
 // 顯示新增表單
-const showAddNoteForm = () => {
-  showAddNewNote.value = true;
+const showAddForm = () => {
+  showAddNewItem.value = true;
 };
 // 關閉新增表單
-const handleCloseAddNote = () => {
+const handleCloseAddForm = () => {
   // 關閉 AddNote 組件並將 showAddNewNote 設置為 false
-  showAddNewNote.value = false;
+  showAddNewItem.value = false;
 };
-
 
 const handleSpotAdded = (spotData) => {
   // Handle the added spot data here
@@ -45,6 +27,28 @@ onUpdated(() =>{
   //spots = JSON.parse(localStorage.getItem('attractions'));
 });
 </script>
+<template>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex align-items-end justify-content-between mb-4">
+          <!-- Logo -->
+            <img src="/logo.png" alt="Logo" class="logo">
+            <button class="btn btn-secondary" @click="showAddForm">
+              <i class="fas fa-plus"></i> 新增
+            </button>
+        </div>
+      </div>
+      <div class="col-12">
+        <AddAttraction v-if="showAddNewItem"></AddAttraction>
+        <AttractionList></AttractionList>
+      </div>
+      
+      
+    </div>
+  </div>
+</template>
+
 
 <style scoped>
 .logo {

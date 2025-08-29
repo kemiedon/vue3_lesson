@@ -1,17 +1,20 @@
 <template>
 <div class="justify-content-center w-100">
     <div class="list-group w-100">
-        <div v-for="(spot, index) in spots" :key="index" :class="['list-group-item', { 'selected': showAddNoteFormIndex === index }]" @click="showAddNoteForm(index)">
+        <div v-for="(spot, index) in store.items" :key="index" :class="['list-group-item', { 'selected': showAddFormIndex === index }]">
             <div class="d-flex align-items-center justify-content-between">
-              <img :src="'/imgs/'+spot.image" :alt="spot.name" class="spot-image">
-              <span class="spot-name">{{ spot.name }}</span>
-              <button @click="handleDelete(index)" class="btn">
+              <div class="spot-item"  @click="showAddForm(index)">
+                <img :src="'/imgs/'+spot.image" :alt="spot.name" class="spot-image">
+                <span class="spot-name">{{ spot.name }}</span>
+              </div>
+              
+              <button @click="store.handleDelete(index)" class="btn">
                 <i class="fas fa-trash-alt"></i>
               </button>
             </div>
-            <div v-if="showAddNoteFormIndex === index" class="add-note-form w-100">
+            <div v-if="showAddFormIndex === index" class="add-note-form w-100">
               <hr>
-              <form @submit.prevent="saveAttraction" class="d-flex align-items-start justify-content-between flex-column">
+              <form @submit.prevent="saveAttraction(index)" class="d-flex align-items-start justify-content-between flex-column">
                 <div class="form-group d-flex justify-content-start align-items-center mb-3">
                   <img :src="previewImageUrl" :alt="spot.name" class="spot-image new-image me-3">
                   <input type="file" id="attractionImage" class="form-control" @change="handleImageChange">
@@ -22,7 +25,7 @@
                 <!-- Buttons -->
                 <div class="d-flex align-items-center justify-content-end align-self-end">
                   <button type="submit" class="btn btn-primary me-3"><i class="fa-solid fa-floppy-disk"></i></button>
-                  <button @click="hideAddNoteForm" type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-xmark"></i></button>
+                  <button @click="hideAddForm" type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-xmark"></i></button>
                 </div>
               </form>
             </div>
@@ -32,11 +35,12 @@
 </template>
 
 <script setup>
-import {onMounted, ref, defineEmits } from 'vue'
-let spots = ref([]);
-const showAddNoteFormIndex = ref(null);
+import {onBeforeMount, ref, defineEmits } from 'vue'
+import axios from 'axios'
+import { useAttractionStore } from '../stores/attractionStores'
+const showAddFormIndex = ref(null);
 let previewImageUrl = ref(null);
-
+const store = useAttractionStore()
 // 選取並在指定元件上預覽圖片
 const handleImageChange = (event) => {
   const file = event.target.files[0];
@@ -46,45 +50,38 @@ const handleImageChange = (event) => {
   } 
 };
 // 顯示編輯表單
-const showAddNoteForm = (index) => {
-  showAddNoteFormIndex.value = index;
-  previewImageUrl.value = `/imgs/${spots.value[index].image}`;
+const showAddForm = (index) => {
+  showAddFormIndex.value = index;
+  previewImageUrl.value = `/imgs/${store.items[index].image}`;
 };
 
 // 隱藏編輯表單
-const hideAddNoteForm = () => {
-  showAddNoteFormIndex.value = 0;
-  console.log(showAddNoteFormIndex.value);
+const hideAddForm = () => {
+  showAddFormIndex.value = null;
+  console.log(showAddFormIndex.value);
 };
-const handleDelete = (index) =>{
-  spots.split(index)
-}
-const saveAttraction = () => {
+
+const saveAttraction = (index) => {
   const attraction = {
     name: attractionName.value,
-    image: attractionImage.value ?attractionImage.value.name : null
+    image: attractionImage.value
   };
 
-  spots.value.push(attraction);
-  localStorage.setItem('attractions', JSON.stringify(spots));
-
-  // 觸發事件將新的景點資料回傳給父組件
-  emit('addAttraction', spots);
+  store.items[index].name = attraction.name
+  if(attraction.image != null) store.items[index].image = attraction.image
+  showAddFormIndex.value = null;
 
   // 清空表單
   attractionName.value = '';
   attractionImage.value = null;
 };
-onMounted(async() => {
-  try{
-    const response = await fetch('/json/attraction.json');//載入景點
-    if(!response.ok){
-      throw new Error('讀取失敗');
-    }
-    spots.value = await response.json();
-  }catch(error){
-    console.log('載入錯誤:', error);
-  }
+onBeforeMount(async() => {
+  try {
+  const response = await axios.get('/json/attraction.json')
+  store.loadItems(response.data)
+} catch (error) {
+  console.log('載入錯誤:', error)
+}
 })
 
 </script>
@@ -98,8 +95,15 @@ onMounted(async() => {
 .spot-name {
   flex: 1; 
 }
+.spot-item{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .list-group-item{
   transition: background-image 0.3s;
+ 
 }
 .list-group-item:hover{
   background-image: linear-gradient(to bottom, #ffffff, #f8f8fc, #f0f1f9, #e8ebf6, #dee5f3);

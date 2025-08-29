@@ -1,3 +1,9 @@
+## 2025-08-29 v2.4
+
+### 更新
+
+- 修改03_project/trip_demo/attraction範例為pinia
+
 ## 2025-08-29 v2.3
 
 ### 更新
