@@ -55,27 +55,25 @@ export const useNoteStore = defineStore( "notes", {
     },
     actions: {
       markedPinned(id) {
-        const index = this.notes.findIndex(note => note.id === id)
-        if(index !== -1){
-            this.notes[index].pinned = !this.notes[index].pinned
-        }
+        const note = this.notes.find(note => note.id === id)
+        note.pinned = !note.pinned
       },
       addNote(title, content){
         console.log(title)
         if( !title ) return
-        const last_id = this.notes[this.notes.length - 1].id
+        const last_id = this.notes.length + 1;
         this.notes.push({
-          id: last_id + 1,
+          id: last_id,
           title,
           content,
           pinned: false
         })
       },
       editNote(id, title, content){
-        const index = this.notes.findIndex((note) => note.id === id)
+        const index = this.notes.find((note) => note.id === id)
         if (index !== -1) {
-          this.notes[index].title = title
-          this.notes[index].content = content
+          notes.title = title
+          notes.content = content
         }
       },
       deleteNote(id){

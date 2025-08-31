@@ -19,11 +19,9 @@ export const useAttractionStore = defineStore('attraction', {
       this.items = this.items.filter(item => item.id !== id)
     },
     editItem(id, updatedItem) {
-      this.items.forEach((item, index) => {
-        if (item.id === id) {
-          this.items[index] = { id, name: updatedItem.name, image: updatedItem.image }
-        }
-      })
+       spot = this.items.find(item => item.id === id)
+       spot.name = updatedItem.name;
+       spot.image=  updatedItem.image 
     },
     loadItems(data) {
       this.items = data

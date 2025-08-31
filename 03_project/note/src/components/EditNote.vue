@@ -1,73 +1,99 @@
 <script setup>
-import { ref, watch, computed } from 'vue'
+import { ref } from 'vue'
 import { useNoteStore } from '../stores/NoteStore'
 import { useRouter, useRoute } from 'vue-router'
 
+// 路由和筆記儲存
 const route = useRoute()
 const router = useRouter()
 const noteStore = useNoteStore()
-const currentNote = computed(() => noteStore.notes.find(note => note.id === parseInt(route.params.id)));
-const newNoteTitle = ref(currentNote.value ? currentNote.value.title : '')
-const newNoteContent = ref(currentNote.value ? currentNote.value.content : '')
-const showSuccessAlert = ref(false)
-// 監聽使用者是否點了其他筆記
-watch(currentNote, (newNote) => {
-  if (newNote) {
-    newNoteTitle.value = newNote.title;
-    newNoteContent.value = newNote.content;
-  }
-});
 
-const clearPlaceholder = () =>{
-  document.querySelector('#title').placeholder = ''
-  
-}
-const clearTextArea = () => {
-  newNoteContent.value = ''
-}
-function updateNote(){
-  if (currentNote.value) {
-    noteStore.editNote(currentNote.value.id, newNoteTitle.value, newNoteContent.value);
-    // 顯示更新成功消息
-    showSuccessAlert.value = true;
+// 取得當前筆記
+const noteId = Number(route.params.id)
+const currentNote = noteStore.notes.find(note => note.id === noteId)
 
-    // 設置一個計時器，在 2 秒後隱藏消息
+// 標題和內容
+const noteTitle = ref(currentNote ? currentNote.title : '')
+const noteContent = ref(currentNote ? currentNote.content : '')
+const showSuccess = ref(false)
+
+// 清空標題預設文字
+function clearTitlePlaceholder() {
+  document.getElementById('title').placeholder = ''
+}
+
+// 清空內容
+function clearContent() {
+  noteContent.value = ''
+}
+
+// 更新筆記
+function saveNote() {
+  if (currentNote) {
+    noteStore.editNote(currentNote.id, noteTitle.value, noteContent.value)
+    showSuccess.value = true
     setTimeout(() => {
-      showSuccessAlert.value = false;
-      router.push({ name: '/', params: { searchResults: results } });
-    }, 1000);
+      showSuccess.value = false
+      router.push({ path: '/' });
+    }, 1000)
   }
 }
 </script>
-<template>
-<div class="container p-5">
-  <div class="alert alert-success text-left" role="alert" v-if="showSuccessAlert">
-    更新成功!
-  </div>
-  <h2 class="mb-5">編輯筆記</h2>
-  <form @submit.prevent="updateNote">
-    <div class="mb-3">
-        <input type="text" v-model="newNoteTitle" class="form-control" id="title" placeholder="請輸入標題..." @focus="clearPlaceholder">
-    </div>
-    <div class="mb-3">
-        <textarea class="form-control" id="note" rows="20" v-model="newNoteContent"></textarea>
-    </div>
-    <button class="btn btn-outline-success" @click="updateNote()">更新 <i class="fa-solid fa-floppy-disk"></i></button>
-  </form>
-</div>
 
+<template>
+  <div class="container p-5">
+    <!-- 成功提示 -->
+    <div v-if="showSuccess" class="alert alert-success">
+      筆記已更新！
+    </div>
+
+    <!-- 標題 -->
+    <h2 class="mb-4">編輯筆記</h2>
+
+    <!-- 表單 -->
+    <form @submit.prevent="saveNote">
+      <div class="mb-3">
+        <input 
+          type="text" 
+          v-model="noteTitle" 
+          class="form-control" 
+          id="title" 
+          placeholder="輸入標題..." 
+          @focus="clearTitlePlaceholder"
+        >
+      </div>
+      <div class="mb-3">
+        <textarea 
+          v-model="noteContent" 
+          class="form-control" 
+          id="note" 
+          rows="10"
+          placeholder="輸入內容..."
+        ></textarea>
+      </div>
+      <button type="submit" class="btn btn-outline-success">
+        保存 <i class="fa-solid fa-floppy-disk"></i>
+      </button>
+    </form>
+  </div>
 </template>
+
 <style scoped>
-form{
-    position: relative;
+.container {
+  max-width: 1000px;
 }
-.btn-outline-success{
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
+.alert-success {
+  transition: opacity 0.3s ease;
 }
-.alert-success{
-  transition: all 0.3s;
+.btn-outline-success {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+form {
+  position: relative;
+}
+textarea {
+  resize: vertical;
 }
 </style>
-

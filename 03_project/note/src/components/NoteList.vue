@@ -1,32 +1,40 @@
 <script setup>
+import {ref, onMounted} from 'vue'
 // 引入 NoteStore 以管理筆記狀態
 import { useNoteStore } from '../stores/NoteStore'
+import { useRouter } from 'vue-router'
+
+// 路由
+const router = useRouter()
 // 定義發送事件 'selectNote'
 const emit = defineEmits(['selectNote'])
 // 取得 NoteStore 實例及相關方法
 const noteStore = useNoteStore()
-const { selectedNote, deleteNote, markedPinned } = noteStore
+const { deleteNote, markedPinned } = noteStore
 // 儲存當前選中的筆記 ID
-let selectedNoteId = null
+let selectedNoteId = ref(false)
+let deleteModal = null
+// 初始化模態框
+onMounted(() => {
+   deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'))
+})
 
 // 顯示刪除確認模態框
 const showDeleteModal = (note) => {
-  selectedNoteId = note.id
-  const modal = new bootstrap.Modal(document.getElementById('deleteModal'))
-  modal.show()
+  selectedNoteId.value = note.id
+  
+  deleteModal.show()
 }
 
 // 確認刪除筆記並關閉模態框
 const confirmDelete = () => {
-  if (selectedNoteId != null) {
-    noteStore.deleteNote(selectedNoteId) // 刪除指定筆記
+  if (selectedNoteId.value != false) {
+    deleteNote(selectedNoteId.value) // 刪除指定筆記
   } else {
     modal.innerHTML("找不到此筆資料!") // 錯誤提示
   }
   // 關閉模態框並移除背景遮罩
-  const modal = document.getElementById('deleteModal')
-  modal.classList.remove('show')
-  document.querySelector('.modal-backdrop').classList.remove('show')
+  deleteModal.hide()
   // 跳轉到 'add' 路由
   router.push({ name: 'add' })
 }
@@ -36,8 +44,8 @@ const confirmDelete = () => {
   <router-link :to="{ name: 'add'}" class="d-flex justify-content-around" >
     <button class="mt-3 btn btn-warning">新增筆記</button>
   </router-link>
-  <div class="container d-flex justify-content-center">
-    <div class="row w-75">
+  <div class="container">
+    <div class="row">
         <div class="col-12">
         <h5 class="pt-3"><i class="fa-solid fa-thumbtack"></i>&nbsp;&nbsp;重要</h5>
         <ul class="list-group">
@@ -112,7 +120,6 @@ const confirmDelete = () => {
   }
   .icon-group i:hover{
     color: rgb(255, 81, 0);
-    
   }
   .list-group{
     width: 100%;
@@ -140,7 +147,7 @@ const confirmDelete = () => {
     background-color: rgb(244, 215, 109);
   }
   .sidebar{
-    width: 20%;
+    width: 100%;
     background: #f0f0f0;
     height: 80vh;
   }

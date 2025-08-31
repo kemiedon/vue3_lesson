@@ -1,43 +1,42 @@
-<template>
-    <div>
-      <h2>生命週期範例</h2>
-      <p>{{ message }}</p>
-    </div>
-</template>
-  
 <script setup>
-  import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue';
-  
-  const message = ref('');
-  
-  onBeforeMount(() => {
-    console.log('beforeMount: 組件即將被掛載到 DOM 上');
-    message.value = 'beforeMount';
-  });
-  
-  onMounted(() => {
-    console.log('mounted: 組件已經被掛載到 DOM 上');
-    message.value = 'mounted';
-  });
-  
-  onBeforeUpdate(() => {
-    console.log('beforeUpdate: 組件更新之前');
-    message.value = 'beforeUpdate';
-  });
-  
-  onUpdated(() => {
-    console.log('updated: 組件更新之後');
-    message.value = 'updated';
-  });
-  
-  onBeforeUnmount(() => {
-    console.log('beforeUnmount: 組件即將被卸載');
-    message.value = 'beforeUnmount';
-  });
-  
-  onUnmounted(() => {
-    console.log('unmounted: 組件已被卸載');
-    message.value = 'unmounted';
-  });
+import { ref, onMounted, onUnmounted } from 'vue'
+
+// 計時器秒數
+const seconds = ref(0)
+let timer = null
+
+// 組件掛載時開始計時
+onMounted(() => {
+  console.log('組件已載入！')
+  timer = setInterval(() => {
+    seconds.value++
+  }, 1000)
+})
+
+// 組件卸載時清除計時器
+onUnmounted(() => {
+  console.log('組件已卸載！')
+  clearInterval(timer)
+})
 </script>
-  
+
+<template>
+  <div>
+    <h1>計時器</h1>
+    <p>已運行 {{ seconds }} 秒</p>
+  </div>
+</template>
+
+<style scoped>
+div {
+  text-align: center;
+  padding: 20px;
+}
+h1 {
+  font-size: 24px;
+}
+p {
+  font-size: 18px;
+}
+</style>
+ 

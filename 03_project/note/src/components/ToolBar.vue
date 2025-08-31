@@ -28,17 +28,18 @@ const clearPlaceholder = () => {
 
 </script>
 <template>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid d-flex">
-          <router-link :to="{ name: 'grid' }" class="navbar-brand">
-            <img class="logo" src="/logo.png" alt="">&nbsp;Quick Note
-          </router-link>
-          <form class="d-flex" @submit.prevent="$emit('search', keyword)">
-            <input id="keyword" v-model="keyword" class="form-control me-2" @keyup.enter="searchNotes()" type="search" placeholder="Search" aria-label="Search" @focus="clearPlaceholder">
-            <button class="btn" type="submit" @click="searchNotes()"><i class="fa-solid fa-magnifying-glass"></i></button>
-          </form>
-        </div>
-    </nav>
+    
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid d-flex">
+            <router-link :to="{ name: 'grid' }" class="navbar-brand">
+                <img class="logo" src="/logo.png" alt="">&nbsp;Quick Note
+            </router-link>
+            <form class="d-flex" @submit.prevent="$emit('search', keyword)">
+                <input id="keyword" v-model="keyword" class="form-control me-2" @keyup.enter="searchNotes()" type="search" placeholder="Search" aria-label="Search" @focus="clearPlaceholder">
+                <button class="btn" type="submit" @click="searchNotes()"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+            </div>
+        </nav>
 </template>
 <style scoped>
 .logo{
